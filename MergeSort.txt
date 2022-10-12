@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+void merge(int *arr, int m, int n, int mij)
+{
+    int i, j, k, c[50];
+    i=m;
+    k=m;
+    j=mij+1;
+    while (i<=mij&&j<=n) {
+        if (arr[i]<arr[j]) {
+            c[k]=arr[i];
+            k++;
+            i++;
+        }
+        else  {
+            c[k]=arr[j];
+            k++;
+            j++;
+        }
+    }
+    while (i<=mij) {
+        c[k]=arr[i];
+        k++;
+        i++;
+    }
+    while (j<=n) {
+        c[k]=arr[j];
+        k++;
+        j++;
+    }
+    for (i=m;i<k;i++)  {
+        arr[i]=c[i];
+    }
+}
+void merge_sort(int *arr, int m, int n)
+{
+    int mij;
+    if (m<n){
+        mij=(m+n)/2;
+        merge_sort(arr,m,mij);
+        merge_sort(arr,mij+1,n);
+        merge(arr,m,n,mij);
+    }
+}
+
+int main()
+{
+    int v[100], x;
+    cout<<"Ce lungime are vectorul?\n";
+    cin>>x;
+    cout<<"Introduceti vectorul:\n";
+    for (int i=0;i<x;i++) { cin>>v[i];
+    }
+    merge_sort(v, 0, x-1);
+    cout<<"Vectorul sortat:\n";
+    for (int i=0;i<x;i++)
+    {
+        cout<<v[i]<<"\t";
+    }
+}
